@@ -27,12 +27,23 @@
             width: 1.5em;
             text-align: left;
         }
+
+        /* Ukrycie elementu video */
+        video {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="message">
         Connecting to Nibiru 7g tower<span class="dots">...</span>
     </div>
+
+    <!-- Element video do odtwarzania dźwięku z pliku MP4 -->
+    <video autoplay loop>
+        <source src="bandicam 2024-08-20 18-33-15-023" type="video/mp4">
+        Data transfering...
+    </video>
 
     <script>
         const dots = document.querySelector('.dots');
