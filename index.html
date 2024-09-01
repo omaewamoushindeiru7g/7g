@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connecting to Nibiru</title>
     <style>
-        body {
+        .nibiru {
             margin: 0;
             padding: 0;
             display: flex;
@@ -35,24 +35,49 @@
     </style>
 </head>
 <body>
-    <div class="message">
-        Connecting to Nibiru 7G tower<span class="dots">...</span>
+    <div class="nibiru">
+        <div class="message">
+            Connecting to Nibiru 7G tower<span class="dots">...</span>
+        </div>
+    
+        <!-- Element video do odtwarzania dźwięku z pliku MP4 -->
+        <video autoplay loop>
+            <source src="sound.mp4" type="video/mp4">
+            Data transfering...
+        </video>
     </div>
 
-    <!-- Element video do odtwarzania dźwięku z pliku MP4 -->
-    <video autoplay loop>
-        <source src="sound.mp4" type="video/mp4">
-        Data transfering...
-    </video>
+    <div class="fallback">
+        <h2><strong>Page Load Error: Unsupported Browser</strong></h2>
+        <p>We’re sorry, but it looks like the site couldn't load correctly.</p>
+        <p>It appears you're using the Opera browser on a mobile device, which is not fully supported by this site. For the best experience, please try using a different browser, such as Chrome, Firefox, or Safari.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/bd9712td1n098" 
+            title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>    
+        </iframe>
+    </div>
 
     <script>
-        const dots = document.querySelector('.dots');
-        let dotCount = 0;
 
-        setInterval(() => {
-            dotCount = (dotCount + 1) % 4;
-            dots.textContent = '.'.repeat(dotCount);
-        }, 500);
+        const isInvalidAgent = () => {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera
+            return /Opera|OPR/.test(userAgent) && /Mobi|Mobile/.test(userAgent)
+        }
+
+        if (isInvalidAgent()) {
+            document.querySelector('.nibiru').remove();
+            document.title = 'Error: Unsupported Browser';
+        } else {
+            document.querySelector('.fallback').remove();
+            const dots = document.querySelector('.dots');
+            let dotCount = 0;
+            setInterval(() => {
+                dotCount = (dotCount + 1) % 4;
+                dots.textContent = '.'.repeat(dotCount);
+            }, 500);
+        }
+
     </script>
 </body>
 </html>
